@@ -3,9 +3,9 @@
 ../Core/Src/main.c:116:6:display_lcd	1
 ../Core/Src/main.c:128:6:time_update	2
 ../Core/Src/main.c:138:6:led7seg	3
-../Core/Src/main.c:166:5:main	2
-../Core/Src/main.c:232:6:SystemClock_Config	3
-../Core/Src/main.c:272:13:MX_I2C1_Init	2
-../Core/Src/main.c:306:13:MX_USART1_UART_Init	2
-../Core/Src/main.c:339:13:MX_GPIO_Init	1
-../Core/Src/main.c:396:6:Error_Handler	1
+../Core/Src/main.c:167:5:main	2
+../Core/Src/main.c:233:6:SystemClock_Config	3
+../Core/Src/main.c:273:13:MX_I2C1_Init	2
+../Core/Src/main.c:307:13:MX_USART1_UART_Init	2
+../Core/Src/main.c:340:13:MX_GPIO_Init	1
+../Core/Src/main.c:397:6:Error_Handler	1

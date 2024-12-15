@@ -11,5 +11,7 @@
 #include "main.h"
 
 void controlLED(uint8_t ledIndex, uint8_t state);
+void LED_status_update();
+
 
 #endif /* INC_LED_CONTROL_H_ */

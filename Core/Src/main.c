@@ -149,6 +149,7 @@ void led7seg()
 			  	  num=0;
 			  }
 
+
 	  }
 }
 /* USER CODE END PFP */

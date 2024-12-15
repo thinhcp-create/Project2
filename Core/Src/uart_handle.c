@@ -15,6 +15,8 @@ extern char g_rx1_char;
 extern uint8_t cntTimeRev1;
 extern char g_rx1_buffer[MAX_BUFFER_UART1];
 extern DS1307_STRUCT time;
+extern char g_led_status[16];
+extern UART_HandleTypeDef huart1;
 bool UART1_IsDoneFrame(void)
 {
 	if(cntTimeRev1>0)
@@ -157,33 +159,37 @@ void GeneralCmd()
 									}
 								}
 		else if(strncmp(g_rx1_buffer+i,"c:hour:",7)==0)
-										{
+								{
 
-											if(atoi(g_rx1_buffer+i+7)>=0 && atoi(g_rx1_buffer+i+7) <=24)
-											{
-												time.hour = atoi(g_rx1_buffer+i+7);
-												DS1307_settime(&time);
-											}
-										}
+									if(atoi(g_rx1_buffer+i+7)>=0 && atoi(g_rx1_buffer+i+7) <=24)
+									{
+										time.hour = atoi(g_rx1_buffer+i+7);
+										DS1307_settime(&time);
+									}
+								}
 		else if(strncmp(g_rx1_buffer+i,"c:min:",6)==0)
-												{
+								{
 
-													if(atoi(g_rx1_buffer+i+6)>=0 && atoi(g_rx1_buffer+i+6) <=59)
-													{
-														time.min = atoi(g_rx1_buffer+i+6);
-														DS1307_settime(&time);
-													}
-												}
+									if(atoi(g_rx1_buffer+i+6)>=0 && atoi(g_rx1_buffer+i+6) <=59)
+									{
+										time.min = atoi(g_rx1_buffer+i+6);
+										DS1307_settime(&time);
+									}
+								}
 		else if(strncmp(g_rx1_buffer+i,"c:sec:",6)==0)
-														{
+								{
 
-															if(atoi(g_rx1_buffer+i+6)>=0 && atoi(g_rx1_buffer+i+6) <=59)
-															{
-																time.sec = atoi(g_rx1_buffer+i+6);
-																DS1307_settime(&time);
-															}
-														}
+									if(atoi(g_rx1_buffer+i+6)>=0 && atoi(g_rx1_buffer+i+6) <=59)
+									{
+										time.sec = atoi(g_rx1_buffer+i+6);
+										DS1307_settime(&time);
+									}
+								}
+		else if(strncmp(g_rx1_buffer+i,"c:forcesend",11)==0)
+								{
+									LED_status_update();
 
+								}
 		}
 }
 

@@ -1,1 +1,2 @@
-../Core/Src/led_control.c:9:6:controlLED	16	static
+../Core/Src/led_control.c:11:6:controlLED	16	static
+../Core/Src/led_control.c:43:6:LED_status_update	64	static

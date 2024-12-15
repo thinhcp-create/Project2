@@ -31,7 +31,7 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#define MAX_BUFFER_UART1 265
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/

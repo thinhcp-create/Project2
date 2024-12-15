@@ -30,13 +30,17 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-#define MAX_BUFFER_UART1 265
+
 #define RECV_END_TIMEOUT 30 //ms
+#define UART_PERIOD 1
+
+uint32_t g_tick=0;
 volatile uint8_t SCI1_rxdone=0;
 uint16_t g_rx1_cnt;
 char g_rx1_char;
 uint8_t cntTimeRev1;
 char g_rx1_buffer[MAX_BUFFER_UART1];
+
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -135,17 +139,14 @@ void led7seg()
 {
 	  static uint32_t count=0;
 	  static uint8_t num=0;
-	  static uint8_t status=0;
       if (HAL_GetTick()-count >=1000)
 	  {
     	  count = HAL_GetTick();
 		  display_digit(num);
-		  controlLED(num, status);
 		  num++;
 		  if(num>9)
 			  {
 			  	  num=0;
-			  	  status = ! status;
 			  }
 
 	  }
@@ -215,6 +216,11 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	  led7seg();
 	  time_update();
+	  if(HAL_GetTick()-g_tick>UART_PERIOD)
+	  	  		{
+	  	  			Uart_Cmd_Handler();
+	  	  			g_tick = HAL_GetTick();
+	  	  		}
   }
   /* USER CODE END 3 */
 }
@@ -342,15 +348,18 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(VCC_GPIO_Port, VCC_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOA, VCC_Pin|LED0_Pin|LED1_Pin|LED2_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, GND_Pin|LED0_Pin|LED1_Pin|LED2_Pin
-                          |B_Pin|A_Pin|F_Pin|G_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, GND_Pin|B_Pin|A_Pin|F_Pin
+                          |G_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, LED3_Pin|LED4_Pin|LED5_Pin|LED6_Pin
-                          |LED7_Pin|E_Pin|D_Pin|C_Pin, GPIO_PIN_RESET);
+                          |LED7_Pin, GPIO_PIN_SET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, E_Pin|D_Pin|C_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : VCC_Pin GND_Pin LED0_Pin LED1_Pin
                            LED2_Pin B_Pin A_Pin F_Pin
